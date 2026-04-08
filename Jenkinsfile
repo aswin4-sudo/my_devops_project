@@ -57,6 +57,15 @@ pipeline {
                 }
             }
         }
+
+        // 🔥 NEW STAGE (VERY IMPORTANT)
+        stage('Deploy to EC2-2 using Ansible') {
+            steps {
+                sh '''
+                cd ansible
+                ansible-playbook -i inventory.ini deploy.yml
+                '''
+            }
+        }
     }
-}
-                
+}             
