@@ -1,0 +1,15 @@
+- hosts: app
+  become: true
+
+  tasks:
+    - name: Pull latest image
+      command: docker pull yourdockerhub/flask-app:latest
+
+    - name: Stop old container
+      command: docker stop flask-app || true
+
+    - name: Remove old container
+      command: docker rm flask-app || true
+
+    - name: Run container
+      command: docker run -d -p 80:5000 --name flask-app yourdockerhub/flask-app:latest
