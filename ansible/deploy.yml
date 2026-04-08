@@ -12,4 +12,4 @@
       command: docker rm flask-app || true
 
     - name: Run container
-      command: docker run -d -p 80:5000 --name flask-app yourdockerhub/flask-app:latest
+      command: docker run -d -p 80:5000 --name flask-app aswinmeachur/my-app:latest
