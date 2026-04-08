@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        SONAR_TOKEN = credentials('sonar-token')
+        SONAR_TOKEN = credentials('sonar-token(sonarcloud providing tocken)')
     }
 
     stages {
 
         stage('Checkout') {
-            steps {
+            steps {)
                 git branch: 'main', url: 'https://github.com/aswin4-sudo/my_devops_project.git'
             }
         }
@@ -31,9 +31,9 @@ pipeline {
                     def scannerHome = tool 'sonar-scanner'
                     withSonarQubeEnv('sonarcloud') {
                         sh """
-                        ${scannerHome}/bin/sonar-scanner \
+                        ${scannerHome}/bin/sonar-scanner(scanner name ) \
                         -Dsonar.projectKey=aswin4-sudo_my_devops_project \
-                        -Dsonar.organization=aswin4-sudo \
+                        -Dsonar.organization=aswin4-sudo(username ) \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=https://sonarcloud.io \
                         -Dsonar.login=$SONAR_TOKEN
@@ -45,15 +45,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t aswinmeachur/my-app:latest .'
+                sh 'docker build -t username cloudhub/my-app:latest .'
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred((credentials name )', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker push aswinmeachur/my-app:latest'
+                    sh 'docker push dockerhun username /my-app:latest'
                 }
             }
         }
