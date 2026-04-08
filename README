@@ -1,211 +1,114 @@
-# 🚀 Complete CI/CD Pipeline with Jenkins, Docker, SonarCloud, Ansible, Terraform
+# 🚀 CI/CD Pipeline with Jenkins, Docker, SonarCloud, Ansible, Terraform
 
-## 📌 Project Overview
-
-This project demonstrates a **production-style CI/CD pipeline** that automates the entire software delivery lifecycle — from code commit to live deployment on a cloud server.
-
-The system is designed using **industry best practices** with a **2-EC2 architecture**, ensuring clear separation between the DevOps control layer and the application runtime environment.
+## 📌 Overview
+This project implements a complete CI/CD pipeline from code commit to live deployment using Jenkins, Docker, SonarCloud, and Ansible on AWS EC2.
 
 ---
 
 ## 🏗️ Architecture
 
-```
 GitHub → Jenkins (Docker) → SonarCloud → Docker → Docker Hub → Ansible → EC2 App
-```
-
-### 🖥️ Infrastructure Layout
-
-* **EC2-1 (DevOps Server)**
-
-  * Docker
-  * Jenkins (Containerized)
-  * Terraform (installed, partially used)
-  * Ansible
-  * Docker CLI
-
-* **EC2-2 (Application Server)**
-
-  * Docker
-  * Application Container
-
-* **External Services**
-
-  * GitHub → Source Code
-  * SonarCloud → Code Quality Analysis
-  * Docker Hub → Image Registry
 
 ---
 
-## 🎯 Key Features
+## 🖥️ Infrastructure
 
-* ✅ Fully automated CI/CD pipeline
-* ✅ Containerized Jenkins setup
-* ✅ Code quality enforcement using SonarCloud
-* ✅ Docker-based application packaging
-* ✅ Automated deployment using Ansible
-* ✅ Scalable architecture (ready for Load Balancer integration)
+EC2-1 (DevOps Server):
+- Docker
+- Jenkins (Container)
+- Ansible
+- Terraform (partially used)
+- Docker CLI
+
+EC2-2 (Application Server):
+- Docker
+- Application Container
+
+External:
+- GitHub (Code)
+- SonarCloud (Quality)
+- Docker Hub (Images)
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Tool       | Purpose                                               |
-| ---------- | ----------------------------------------------------- |
-| Jenkins    | CI/CD Pipeline orchestration                          |
-| Docker     | Containerization                                      |
-| Ansible    | Deployment automation                                 |
-| Terraform  | Infrastructure provisioning *(partially implemented)* |
-| SonarCloud | Code quality & security analysis                      |
-| GitHub     | Source code management                                |
+Jenkins     → CI/CD Pipeline  
+Docker      → Containerization  
+Ansible     → Deployment  
+Terraform   → Infra (partial use)  
+SonarCloud  → Code Quality  
+GitHub      → Source Control  
 
 ---
 
-## 🧩 Pipeline Workflow
+## 🔄 Pipeline Flow
 
-### 🔄 End-to-End Flow
-
-1. Developer pushes code to GitHub
-2. GitHub Webhook triggers Jenkins
-3. Jenkins performs:
-
-   * Code Checkout
-   * Build
-   * Testing
-4. Code sent to SonarCloud
-5. Quality Gate validation
-6. Docker image is built
-7. Image pushed to Docker Hub
-8. Ansible deploys to EC2-2
-9. Application runs live
+1. Push code to GitHub  
+2. Webhook triggers Jenkins  
+3. Jenkins:
+   - Checkout code  
+   - Build & test  
+4. SonarCloud analysis  
+5. Quality gate check  
+6. Build Docker image  
+7. Push to Docker Hub  
+8. Ansible deploys to EC2-2  
+9. App runs live  
 
 ---
 
-## 🧠 Detailed Implementation
+## 🧩 Tasks
 
-### 🧩 Task 1: Infrastructure Setup (DevOps Server)
+### Task 1: DevOps Server Setup
+- Launch EC2-1  
+- Install Docker  
+- Run Jenkins in Docker  
+- Install Ansible, Terraform, Docker CLI  
 
-**Goal:** Setup central CI/CD control system
+### Task 2: CI Pipeline
+- Connect GitHub webhook  
+- Configure Jenkins pipeline  
+- Integrate SonarCloud  
 
-**Steps:**
+### Task 3: Docker
+- Build Docker image  
+- Push to Docker Hub  
 
-* Launch EC2-1 instance
-* Install Docker
-* Run Jenkins inside Docker container
-* Install inside Jenkins container:
-
-  * Terraform
-  * Ansible
-  * Docker CLI
-
-**Outcome:**
-✔ Fully containerized DevOps control server
-
----
-
-### 🧩 Task 2: CI Pipeline (Integration + Quality)
-
-**Goal:** Automate build, test, and code validation
-
-**Process:**
-
-* GitHub Webhook triggers Jenkins
-* Jenkins pipeline executes:
-
-  * Code checkout
-  * Build & test
-  * SonarCloud analysis
-
-**Outcome:**
-✔ Only quality-approved code proceeds
+### Task 4: Deployment
+- Use Ansible  
+- Pull image to EC2-2  
+- Run container  
 
 ---
 
-### 🧩 Task 3: Containerization & Registry
+## ⚠️ Terraform Status
 
-**Goal:** Package application as Docker image
-
-**Process:**
-
-* Jenkins builds Docker image
-* Tags image with version
-* Pushes image to Docker Hub
-
-**Outcome:**
-✔ Portable, versioned application artifact
+- Installed but not fully used  
+- Currently only for EC2 monitoring  
+- Future plan:
+  - Full infra automation  
+  - Load balancer  
+  - Auto scaling  
 
 ---
 
-### 🧩 Task 4: Deployment Automation
+## 📁 Project Structure
 
-**Goal:** Deploy application automatically
-
-**Process:**
-
-#### 🔹 Terraform (Partial Usage)
-
-* Used for:
-
-  * Monitoring / managing EC2-2
-* Not fully utilized yet
-
-#### 🔹 Ansible (Main Deployment Tool)
-
-* Connects to EC2-2 via SSH
-* Pulls Docker image
-* Runs container
-
-**Outcome:**
-✔ Automated deployment on EC2-2
-
----
-
-## ⚠️ Current Limitation
-
-* Terraform is **not fully implemented**
-* Currently used only for:
-
-  * EC2 monitoring / basic management
-
-### 🔮 Future Plan
-
-* Implement full infrastructure automation using Terraform
-* Add **Load Balancer (AWS ELB)**
-* Enable **auto-scaling architecture**
-
----
-
-## 🔥 Future Architecture (Planned Upgrade)
-
-```
-GitHub → Jenkins → Docker → Docker Hub → Terraform → Load Balancer → Multiple EC2 Instances
-```
-
-✔ High availability
-✔ Scalability
-✔ Zero downtime deployments
-
----
-
-## 📦 Project Structure
-
-```
 project/
-│── app/                  # Application code
-│── Dockerfile           # Docker build file
-│── Jenkinsfile          # CI/CD pipeline script
+│── app/
+│── Dockerfile
+│── Jenkinsfile
 │── ansible/
-│    ├── inventory
-│    └── playbook.yml
-│── terraform/           # (Partial implementation)
+│   ├── inventory
+│   └── playbook.yml
+│── terraform/
 │── README.md
-```
 
 ---
 
-## 🧪 Jenkins Pipeline (Example)
+## 🧪 Jenkinsfile
 
-```groovy
 pipeline {
     agent any
 
@@ -222,13 +125,13 @@ pipeline {
             }
         }
 
-        stage('Sonar Analysis') {
+        stage('Sonar') {
             steps {
                 sh 'sonar-scanner'
             }
         }
 
-        stage('Push Image') {
+        stage('Push') {
             steps {
                 sh 'docker push your-image'
             }
@@ -241,37 +144,25 @@ pipeline {
         }
     }
 }
-```
 
 ---
 
-## 🔐 Security & Best Practices
+## 🔐 Best Practices
 
-* SSH key-based authentication
-* Environment variables for secrets
-* Docker image versioning
-* Quality gates before deployment
-
----
-
-## 💡 One-Line Summary
-
-> Fully automated CI/CD pipeline from **code commit → quality check → containerization → deployment → live application**
+- Use SSH keys  
+- Store secrets in Jenkins credentials  
+- Use version tags for Docker images  
+- Enforce Sonar quality gates  
 
 ---
 
-## 🚀 How to Run This Project
+## 💡 Summary
 
-1. Clone the repository
-2. Setup EC2-1 (DevOps Server)
-3. Run Jenkins in Docker
-4. Configure:
-
-   * GitHub Webhook
-   * SonarCloud
-   * Docker Hub credentials
-5. Setup EC2-2 (Application Server)
-6. Run pipeline from Jenkins
+Automated pipeline from code → test → quality → Docker → deploy → live app
 
 ---
 
+## 👨‍💻 Author
+
+Aswin M
+B.Tech ECE
