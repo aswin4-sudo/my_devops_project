@@ -3,7 +3,7 @@
 
   tasks:
     - name: Pull latest image
-      command: docker pull yourdockerhub/flask-app:latest
+      command: docker pull aswinmeachur/flask-app:latest
 
     - name: Stop old container
       command: docker stop flask-app || true
@@ -12,4 +12,4 @@
       command: docker rm flask-app || true
 
     - name: Run container
-      command: docker run -d -p 80:5000 --name flask-app aswinmeachur/my-app:latest
+      command: docker run -d -p 80:5000 --name flask-app aswinmeac/my-app:latest
