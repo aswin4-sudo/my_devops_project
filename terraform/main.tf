@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 data "aws_instance" "app_server" {
-  instance_id = "i-0968d9a5d717c507b"
+  instance_id = "ec2 instance id"
 }
 
 output "app_ip" {
