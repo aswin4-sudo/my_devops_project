@@ -9,7 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/aswin4-sudo/my_devops_project.git'
+                git branch: 'main', url: 'https://github.com/aswin4-sudo/my_devops_project.git'
             }
         }
 
