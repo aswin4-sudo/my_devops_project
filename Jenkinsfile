@@ -25,17 +25,22 @@ pipeline {
             }
         }
 
+
         stage('SonarCloud Analysis') {
-            steps {
-                sh """
-                sonar-scanner \
-                -Dsonar.projectKey=aswin4-sudo_my_devops_project \
-                -Dsonar.organization=aswin4-sudo \
-                -Dsonar.sources=. \
-                -Dsonar.host.url=https://sonarcloud.io \
-                -Dsonar.login=$SONAR_TOKEN
-                """
-            }
+             steps {
+                 script {
+                     def scannerHome = tool 'sonar-scanner'
+                     withSonarQubeEnv('sonarcloud') {
+                         sh """
+                         ${scannerHome}/bin/sonar-scanner \
+                         -Dsonar.projectKey=aswin4-sudo_my_devops_project \
+                         -Dsonar.organization=aswin4-sudo \
+                         -Dsonar.sources=. \
+                         -Dsonar.host.url=https://sonarcloud.io \
+                         -Dsonar.login=$SONAR_TOKEN
+                          """
+                     }
+                 }
+             }
         }
-    }
-}
+                
